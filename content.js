@@ -48,7 +48,8 @@ function getToastElement() {
   return toastElement;
 }
 
-function showToast(rate) {
+// 简单的显示函数，支持自定义保持时间
+function showToast(text, duration = 1500) {
   const toast = getToastElement();
   
   // 关键修复：动态判断插入位置
@@ -61,10 +62,7 @@ function showToast(rate) {
   }
 
   // 更新内容
-  toast.textContent = `${rate}x`;
-  
-  // 强制重绘
-  // void toast.offsetWidth; 
+  toast.textContent = text;
   
   // 显示
   requestAnimationFrame(() => {
@@ -73,10 +71,11 @@ function showToast(rate) {
   
   // 定时隐藏
   if (toastTimeout) clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    toast.style.opacity = '0';
-    // 动画结束后可选：从 DOM 移除以保持清洁，这里选择仅隐藏
-  }, 1500);
+  if (duration > 0) {
+    toastTimeout = setTimeout(() => {
+      toast.style.opacity = '0';
+    }, duration);
+  }
 }
 
 // 安全设置播放速度（限制范围 0.1 ~ 16.0）
@@ -84,8 +83,12 @@ function setPlaybackRate(video, rate) {
   const clamped = Math.min(16.0, Math.max(0.1, parseFloat(rate.toFixed(1))));
   video.playbackRate = clamped;
   console.log(`[Video Speed] Set to ${clamped}x`);
-  showToast(clamped);
+  showToast(`${clamped}x`);
 }
+
+// 数字键输入缓冲
+let inputBuffer = '';
+let inputTimer = null;
 
 // 全局键盘监听（使用捕获阶段，优先触发）
 document.addEventListener('keydown', (e) => {
@@ -102,8 +105,40 @@ document.addEventListener('keydown', (e) => {
   if (!video) return;
 
   const key = e.key.toLowerCase();
-  let newRate;
+  
+  // 处理数字键 (0-9)
+  if (/^\d$/.test(key)) {
+    // 阻止默认行为（防止网页自身的快捷键，如 YouTube 的 0-9 跳转）
+    e.preventDefault();
+    e.stopPropagation();
 
+    inputBuffer += key;
+    showToast(`输入: ${inputBuffer}`, 0); // 0 表示不自动消失，直到输入完成
+
+    if (inputTimer) clearTimeout(inputTimer);
+    inputTimer = setTimeout(() => {
+      const rate = parseInt(inputBuffer, 10);
+      inputBuffer = '';
+      
+      // 只有有效的倍速才应用 (0 被视为无效或暂停，这里暂不处理为暂停，避免误操作)
+      if (rate > 0) {
+        setPlaybackRate(video, rate);
+      } else {
+        // 如果输入了 0，可以选择重置为 1.0 或者提示无效，这里选择清除提示
+        showToast('取消', 1000);
+      }
+    }, 800); // 800ms 等待时间，允许用户输入多位数字
+    return;
+  }
+
+  // 如果按下了非数字键，且有缓冲，清除缓冲
+  if (inputBuffer) {
+    clearTimeout(inputTimer);
+    inputBuffer = '';
+    // 不 return，允许继续执行 Z/X/C 逻辑
+  }
+
+  let newRate;
   if (key === 'z') {
     newRate = video.playbackRate - 0.1;
     setPlaybackRate(video, newRate);
