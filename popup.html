@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    :root {
+      --primary-color: #1a73e8;
+      --hover-color: #1557b0;
+      --bg-color: #f8f9fa;
+      --text-color: #202124;
+      --shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+    }
+    body {
+      width: 320px;
+      padding: 16px;
+      margin: 0;
+      font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #e8eaed;
+      padding-bottom: 8px;
+    }
+    h1 {
+      font-size: 16px;
+      margin: 0;
+      color: #3c4043;
+    }
+    .current-speed-display {
+      font-size: 14px;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    button {
+      padding: 8px 0;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      background: white;
+      color: #3c4043;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    button:hover {
+      background-color: #f1f3f4;
+      border-color: #dadce0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      transform: translateY(-1px);
+    }
+    button.active {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      font-weight: bold;
+      box-shadow: 0 1px 3px rgba(26,115,232,0.3);
+    }
+    button.active:hover {
+      background-color: var(--hover-color);
+      box-shadow: 0 2px 4px rgba(26,115,232,0.4);
+    }
+    .footer {
+      font-size: 12px;
+      color: #5f6368;
+      border-top: 1px solid #e8eaed;
+      padding-top: 12px;
+    }
+    .shortcut-list {
+      display: flex;
+      justify-content: space-between;
+      margin: 4px 0;
+    }
+    .key {
+      display: inline-block;
+      padding: 0 4px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background: #fff;
+      font-family: monospace;
+      margin-right: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>视频倍速控制</h1>
+    <div id="speed-display" class="current-speed-display">检测中...</div>
+  </div>
+  
+  <div class="grid-container">
+    <button data-rate="0.25">0.25x</button>
+    <button data-rate="0.5">0.5x</button>
+    <button data-rate="0.75">0.75x</button>
+    <button data-rate="1.0">正常</button>
+    
+    <button data-rate="1.25">1.25x</button>
+    <button data-rate="1.5">1.5x</button>
+    <button data-rate="1.75">1.75x</button>
+    <button data-rate="2.0">2.0x</button>
+    
+    <button data-rate="2.5">2.5x</button>
+    <button data-rate="3.0">3.0x</button>
+    <button data-rate="4.0">4.0x</button>
+    <button data-rate="5.0">5.0x</button>
+
+    <button data-rate="8.0">8.0x</button>
+    <button data-rate="10.0">10.0x</button>
+    <button data-rate="12.0">12.0x</button>
+    <button data-rate="16.0">16.0x</button>
+  </div>
+
+  <div class="footer">
+    <div style="margin-bottom: 6px; font-weight: bold;">快捷键说明：</div>
+    <div class="shortcut-list">
+      <span><span class="key">Z</span> 减速 (-0.1)</span>
+      <span><span class="key">X</span> 重置</span>
+      <span><span class="key">C</span> 加速 (+0.1)</span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
