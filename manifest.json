@@ -4,21 +4,21 @@
   "version": "1.0",
   "description": "在任何网站上使用Z/X/C键或预设按钮控制视频播放速度。",
   "icons": {
-    "16": "Logo_Main_2108.png",
-    "32": "Logo_Main_2108.png",
-    "48": "Logo_Main_2108.png",
-    "128": "Logo_Main_2108.png"
+    "16": "/img/icon16.png",
+    "32": "/img/icon32.png",
+    "48": "/img/icon48.png",
+    "128": "/img/icon128.png"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["js/content.js"]
     }
   ],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "/popup.html",
     "default_title": "视频速度控制器",
-    "default_icon": "Logo_Main_2108.png"
+    "default_icon": "/img/icon16.png"
   },
   "permissions": ["scripting"],
   "host_permissions": ["<all_urls>"]
