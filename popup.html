@@ -7,59 +7,51 @@
     <link rel="stylesheet" href="./css/popup.css" />
   </head>
   <body>
-    <!-- 头部区域：标题和当前倍速显示 -->
     <div class="header">
-      <h1>视频倍速控制</h1>
-      <!-- 当前倍速显示元素，初始显示"检测中..."，JS会动态更新 -->
+      <div class="header-left">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <h1>视频倍速</h1>
+      </div>
       <div id="speed-display" class="current-speed-display">检测中...</div>
     </div>
 
-    <!-- 倍速按钮网格容器：4x4 布局，包含 0.25x ~ 16x 的预设倍速 -->
     <div class="grid-container">
-      <!-- 第一行：慢速档 (0.25x - 1.0x) -->
       <button data-rate="0.25">0.25x</button>
       <button data-rate="0.5">0.5x</button>
       <button data-rate="0.75">0.75x</button>
       <button data-rate="1.0">正常</button>
 
-      <!-- 第二行：标准快速档 (1.25x - 2.0x) -->
       <button data-rate="1.25">1.25x</button>
       <button data-rate="1.5">1.5x</button>
       <button data-rate="1.75">1.75x</button>
       <button data-rate="2.0">2.0x</button>
 
-      <!-- 第三行：高速档 (2.5x - 5.0x) -->
       <button data-rate="2.5">2.5x</button>
       <button data-rate="3.0">3.0x</button>
       <button data-rate="4.0">4.0x</button>
       <button data-rate="5.0">5.0x</button>
 
-      <!-- 第四行：极速档 (8.0x - 16.0x) -->
       <button data-rate="8.0">8.0x</button>
-      <button data-rate="10.0">10.0x</button>
-      <button data-rate="12.0">12.0x</button>
-      <button data-rate="16.0">16.0x</button>
+      <button data-rate="10.0">10x</button>
+      <button data-rate="12.0">12x</button>
+      <button data-rate="16.0">16x</button>
     </div>
 
-    <!-- 底部区域：快捷键说明 -->
     <div class="footer">
-      <div style="margin-bottom: 6px; font-weight: bold">快捷键说明：</div>
-      <!-- 主要快捷键列表 -->
+      <div class="footer-title">快捷键</div>
       <div class="shortcut-list">
-        <span><span class="key">Z</span> 减速</span>
-        <span><span class="key">X</span> 重置</span>
-        <span><span class="key">C</span> 加速</span>
+        <span class="shortcut-item"><span class="key">Z</span> 减速</span>
+        <span class="shortcut-item"><span class="key">X</span> 重置</span>
+        <span class="shortcut-item"><span class="key">C</span> 加速</span>
       </div>
-      <!-- 数字键提示 -->
       <div class="shortcut-hint">
-        <span
-          ><span class="key">0</span>-<span class="key">9</span>
-          输入数字直接设置倍速</span
-        >
+        <span class="key">0</span>-<span class="key">9</span>
+        <span>输入数字直接设置倍速</span>
       </div>
     </div>
 
-    <!-- 弹窗交互脚本 -->
     <script src="/js/popup.js"></script>
   </body>
 </html>

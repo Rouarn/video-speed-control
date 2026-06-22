@@ -41,24 +41,22 @@ function getToastElement() {
   toastElement = document.createElement('div');
   toastElement.id = 'vsc-speed-toast-overlay';
   
-  // 设置极高优先级的内联样式，确保覆盖页面原有样式
   toastElement.style.cssText = `
     position: absolute;
     top: 20px;
     left: 20px;
-    z-index: 2147483647;           /* 最大安全 z-index 值 */
-    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2147483647;
+    background: linear-gradient(135deg, #18a058, #36ad6a);
     color: #fff;
-    padding: 10px 18px;
-    border-radius: 6px;
-    font-family: sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    pointer-events: none;          /* 不阻碍页面交互 */
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    pointer-events: none;
     opacity: 0;
-    transition: opacity 0.2s ease; /* 平滑渐显/渐隐 */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    transition: opacity 0.25s ease;
+    box-shadow: 0 4px 16px rgba(24, 160, 88, 0.35);
     display: block !important;
     visibility: visible !important;
   `;
